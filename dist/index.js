@@ -42,25 +42,37 @@ var referenceLoader = function referenceLoader(contents, done) {
 
   transformSelectors(tree);
 
+  // console.log(tree.toString());
+
   return tree.toString();
 };
 
+var referenceIdent = _gonzalesPe2.default.createNode({
+  type: 'ident',
+  content: 'REF',
+  syntax: 'scss'
+});
+
+var referenceNode = _gonzalesPe2.default.createNode({
+  type: 'placeholder',
+  content: [referenceIdent],
+  syntax: 'scss'
+});
+
 var transformSelectors = function transformSelectors(node) {
-  node.eachFor('class', function (subnode) {
-    subnode.type = 'placeholder';
+  if (node.type === 'selector') {
+    // console.log(node.content);
 
-    subnode.eachFor('ident', function (subsubnode) {
-      subsubnode.content = '__CLASS-' + subsubnode.content;
-    });
-  });
+    node.content = node.content.map(function (node) {
+      if (node.type === 'class' || node.type === 'id' || node.type === 'attributeSelector' || node.type === 'typeSelector') {
+        return [node, referenceNode];
+      }
 
-  node.eachFor('id', function (subnode) {
-    subnode.type = 'placeholder';
-
-    subnode.eachFor('ident', function (subsubnode) {
-      subsubnode.content = '__ID-' + subsubnode.content;
-    });
-  });
+      return node;
+    }).reduce(function (a, b) {
+      return a.concat(b);
+    }, []);
+  }
 
   node.forEach(transformSelectors);
 };

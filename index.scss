@@ -1,17 +1,13 @@
 @import 'verbose !reference';
 
+.blah {
+  @extend #{reference('.foo')};
+}
+
 .test {
-  @extend #{reference('.col-6')};
+  @extend .bar%REF;
 }
 
-.another {
-  @extend #{reference('.col-3')};
-}
-
-%attr[test="blah"] {
-  color: blue;
-}
-
-.test-attr {
-  @extend %attr[test="blah"];
-}
+// .another {
+//   @extend #{reference('.bar')};
+// }

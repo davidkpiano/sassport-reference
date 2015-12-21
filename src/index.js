@@ -32,25 +32,45 @@ const referenceLoader = (contents, done) => {
 
   transformSelectors(tree);
 
+  // console.log(tree.toString());
+
   return tree.toString();
 }
 
+const referenceIdent = gonzales.createNode({  
+  type: 'ident',
+  content: 'REF',
+  syntax: 'scss'
+});
+
+const referenceNode = gonzales.createNode({
+  type: 'placeholder',
+  content: [referenceIdent],
+  syntax: 'scss'
+});
+
+
 const transformSelectors = (node) => {
-  node.eachFor('class', (subnode) => {
-    subnode.type = 'placeholder';
+  if (node.type === 'selector') {
+    // console.log(node.content);
 
-    subnode.eachFor('ident', (subsubnode) => {
-      subsubnode.content = `__CLASS-${subsubnode.content}`;
-    });
-  });
+    node.content = node.content
+      .map((node) => {
+        if (node.type === 'class'
+          || node.type === 'id'
+          || node.type === 'attributeSelector'
+          || node.type === 'typeSelector') {
+          return [
+            node,
+            referenceNode
+          ];
+        }
 
-  node.eachFor('id', (subnode) => {
-    subnode.type = 'placeholder';
+        return node;
+      })
+      .reduce((a, b) => a.concat(b), []);
+  }
 
-    subnode.eachFor('ident', (subsubnode) => {
-      subsubnode.content = `__ID-${subsubnode.content}`;
-    });
-  });
 
   node.forEach(transformSelectors);
 }

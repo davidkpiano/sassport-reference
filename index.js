@@ -5,5 +5,6 @@ sassport([spReference])
   .render({
     file: 'index.scss'
   }, function(err, res) {
+    console.error(err);
     console.log(res.css.toString());
   });
