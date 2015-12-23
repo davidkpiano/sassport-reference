@@ -1,0 +1,21 @@
+
+
+@for $i from 1 through 100 {
+  .col-#{$i} {
+    width: percentage($i / 100);
+
+    + .col-flex {
+      width: percentage((100 - $i) / 100);
+    }
+  }
+}
+
+@mixin test {
+  $from: 'mixin';
+
+  .inside-#{$from} {
+    color: green;
+  }
+}
+
+@include test;

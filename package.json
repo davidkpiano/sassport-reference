@@ -2,7 +2,7 @@
   "name": "sassport-reference",
   "version": "0.1.0",
   "description": "Sassport loader for importing by reference in Sass.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "babel -w ./src -d ./dist",
     "test": "mocha -w --require babel-core/register"
