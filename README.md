@@ -30,6 +30,7 @@ And just add the `!reference` loader to any imported SCSS file you want to inclu
     width: percentage($i / 12);
   }
 }
+```
 
 **Input SCSS:**
 ```scss
@@ -51,4 +52,4 @@ And just add the `!reference` loader to any imported SCSS file you want to inclu
 }
 ```
 
-Only the CSS you reference will be output.
+Only the CSS you reference will be output. You can use extended referenced selectors in the same way as you would use any other extended selector.
