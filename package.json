@@ -1,6 +1,6 @@
 {
   "name": "sassport-reference",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Sassport loader for importing by reference in Sass.",
   "main": "index.js",
   "scripts": {
