@@ -24,6 +24,11 @@ var referenceModule = _sassport2.default.module('reference').functions({
   }
 }).loaders({
   'reference': function reference(contents, options, done) {
+    if (!contents) {
+      console.log(options);
+      throw new Error('The Sass file "' + options.absPath + '" is either missing or empty.');
+    }
+
     var tree = _gonzalesPe2.default.parse(contents, {
       syntax: 'scss',
       context: 'stylesheet'
@@ -42,8 +47,6 @@ var referenceLoader = function referenceLoader(contents, done) {
 
   transformSelectors(tree);
 
-  // console.log(tree.toString());
-
   return tree.toString();
 };
 
@@ -61,8 +64,6 @@ var referenceNode = _gonzalesPe2.default.createNode({
 
 var transformSelectors = function transformSelectors(node) {
   if (node.type === 'selector') {
-    // console.log(node.content);
-
     node.content = node.content.map(function (node) {
       if (node.type === 'class' || node.type === 'id' || node.type === 'attributeSelector' || node.type === 'typeSelector') {
         return [node, referenceNode];

@@ -14,6 +14,11 @@ const referenceModule = sassport.module('reference')
   })
   .loaders({
     'reference': (contents, options, done) => {
+      if (!contents) {
+        console.log(options);
+        throw new Error(`The Sass file "${options.absPath}" is either missing or empty.`);
+      }
+
       let tree = gonzales.parse(contents, {
         syntax: 'scss',
         context: 'stylesheet'
@@ -31,8 +36,6 @@ const referenceLoader = (contents, done) => {
   });
 
   transformSelectors(tree);
-
-  // console.log(tree.toString());
 
   return tree.toString();
 }
@@ -52,8 +55,6 @@ const referenceNode = gonzales.createNode({
 
 const transformSelectors = (node) => {
   if (node.type === 'selector') {
-    // console.log(node.content);
-
     node.content = node.content
       .map((node) => {
         if (node.type === 'class'

@@ -4,7 +4,8 @@
   "description": "Sassport loader for importing by reference in Sass.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha "
+    "start": "babel -w ./src -d ./dist",
+    "test": "mocha -w --require babel-core/register"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,8 @@
     "gonzales-pe": "^3.2.1",
     "node-sass": "^3.4.2",
     "sassport": "^0.7.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4"
   }
 }
