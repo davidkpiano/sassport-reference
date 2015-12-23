@@ -1,6 +1,6 @@
 # Sassport Reference Loader
 
-Import by reference in Sass using Sassport.
+Import by reference in Sass using [Sassport](https://www.github.com/davidkpiano/sassport).
 
 ## Quick Start
 - `npm install sassport sassport-reference --save`
